@@ -1,7 +1,7 @@
 import subprocess
 
 def executor():
-    subprocess.call(["Python", "subprocess_test\\exe\\dist\\counter.exe"])
+    subprocess.Popen("C:\\Users\\User\\Documents\\GitHub\\BrainStorm\\subprocess_test\\exe\\dist\\counter.exe")
 
 exe_number = 5
 
