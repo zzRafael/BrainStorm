@@ -59,7 +59,7 @@ from random import choice
 import pyautogui
 headings = ['Number', 'Model', 'Process']
 
-processes = ['Flash', 'Polimento', 'Gravando', 'Black', 'Cravando', 'balançando']
+processes = ['Flash', 'Polimento', 'Gravando', 'Black', 'Cravando']
 
 data_base = []
 
@@ -73,7 +73,7 @@ layout = [
     [
     sg.Frame('',[[sg.Text('UNISYSTEM')]], size = frame_size, expand_y = True),
     sg.Frame('',[[sg.Table(data_base,headings = headings,justification = 'left',max_col_width = 500,expand_x = True,expand_y = True,auto_size_columns = True,key = '_MAIN_TABLE_')]], size = frame_size, expand_y = True),
-    sg.Frame('',[[sg.Text('Add new orders', key = '_TITLE_', text_color='white')], [sg.Text('Order number: '), sg.Input(key = '_INPUT_NUMBER_', do_not_clear = False)], [sg.Text('Model name: '), sg.Input(key = '_INPUT_MODEL_', do_not_clear = False)], [sg.Combo(key = '_INPUT_PROCESS_', default_value = 'Produzindo', values = processes)], [sg.Button('ADD', key = '_SUBMIT_BUTTON_')]], element_justification = 'center', size = frame_size, expand_y = True),
+    sg.Frame('',[[sg.Text('Add new orders', key = '_TITLE_', text_color='white')], [sg.Text('Order number: '), sg.Input(key = '_INPUT_NUMBER_', do_not_clear = False)], [sg.Text('Model name:  '), sg.Input(key = '_INPUT_MODEL_', do_not_clear = False)], [sg.Combo(key = '_INPUT_PROCESS_', default_value = 'Produzindo', values = processes)], [sg.Button('ADD', key = '_SUBMIT_BUTTON_')]], element_justification = 'center', size = frame_size, expand_y = True),
     ]
     ]
 sg.Input(())
