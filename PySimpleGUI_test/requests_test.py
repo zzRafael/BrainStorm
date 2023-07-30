@@ -57,10 +57,9 @@ while True:
 import PySimpleGUI as sg
 from random import choice
 import pyautogui
-headings = ['Name', 'Size', 'Type']
+headings = ['Number', 'Model', 'Process']
 
-sizes = ['Polimento', 'Cravando', 'Flash']
-types = ['Rocky', 'Gaseous', 'Frozen', 'Desertic']
+processes = ['Flash', 'Polimento', 'Gravando', 'Black', 'Cravando', 'balançando']
 
 data_base = []
 
@@ -74,38 +73,60 @@ layout = [
     [
     sg.Frame('',[[sg.Text('UNISYSTEM')]], size = frame_size, expand_y = True),
     sg.Frame('',[[sg.Table(data_base,headings = headings,justification = 'left',max_col_width = 500,expand_x = True,expand_y = True,auto_size_columns = True,key = '_MAIN_TABLE_')]], size = frame_size, expand_y = True),
-    sg.Frame('',[[sg.Text('Add new orders', key = '_STATUS_TEXT_')], [sg.Input(key = '_MAIN_INPUT_', do_not_clear = False)], [sg.Button('ADD', key = '_SUBMIT_BUTTON_')]], element_justification = 'center', size = frame_size, expand_y = True),
-    ]]
+    sg.Frame('',[[sg.Text('Add new orders', key = '_TITLE_', text_color='white')], [sg.Text('Order number: '), sg.Input(key = '_INPUT_NUMBER_', do_not_clear = False)], [sg.Text('Model name: '), sg.Input(key = '_INPUT_MODEL_', do_not_clear = False)], [sg.Combo(key = '_INPUT_PROCESS_', default_value = 'Produzindo', values = processes)], [sg.Button('ADD', key = '_SUBMIT_BUTTON_')]], element_justification = 'center', size = frame_size, expand_y = True),
+    ]
+    ]
 sg.Input(())
 
-sg.theme('DarkTeal9')
+sg.theme('default1')
 window = sg.Window('TEST WINDOW', layout, resizable=True, finalize=True)
 window.Maximize()
 
 while True:
     event, values = window.read()
-    
+
     if event == sg.WIN_CLOSED:
         break
-    
+
     if event == '_SUBMIT_BUTTON_':
-        print('botao ok')
-        size_ = choice(sizes)
-        type_ = choice(types)
-        name = values['_MAIN_INPUT_']
-        data_base.append([f"{name}", size_, type_])
+        number = values['_INPUT_NUMBER_']
+        model = values['_INPUT_MODEL_']
+        process  = values['_INPUT_PROCESS_']
+        
+        if number.isnumeric():
+            # checking if name already exists 
+            number_exists = False
+            for data in data_base:
+                if number == data_base[data_base.index(data)][0]:
+                    print(data_base[data_base.index(data)])
+                    window['_TITLE_'].update('Order already exists!', text_color='red')
+                    number_exists = True
+
+            if number_exists:
+                pass
+            else:
+                order = [number, model, process]
                 
-        window['_MAIN_TABLE_'].update(data_base)
-        
-        for data in data_base:
-            if data[1] == 'Polimento':
-                color = 'green'
-            if data[1] == 'Cravando':
-                color = 'yellow'
-            if data[1] == 'Flash':
-                color = 'red'
+                data_base.append(order)
 
-            window['_MAIN_TABLE_'].Update(row_colors = [[data_base.index(data), color]])
-        
+                window['_MAIN_TABLE_'].update(data_base)
+
+                window['_TITLE_'].update(f'Order {number} has been added', text_color='white')
+
+                '''for data in data_base:
+                    if data.process == processes[0]:
+                        color = 'green'
+                    elif data.process == processes[1]:
+                        color = 'blue'
+                    elif data.process == processes[2]:
+                        color = 'pink'
+                    else:
+                        color = 'yellow'
+                
+                    
+
+                    window['_MAIN_TABLE_'].Update(row_colors = [[data_base.index(data), color]])'''
+        else:
+            window['_TITLE_'].update('This order is not a valid number', text_color='red')
+
     print(f'EVENT: {event}\nVALUE: {values}')
-
