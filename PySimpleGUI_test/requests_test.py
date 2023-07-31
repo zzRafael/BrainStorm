@@ -82,6 +82,23 @@ sg.theme('default1')
 window = sg.Window('TEST WINDOW', layout, resizable=True, finalize=True)
 window.Maximize()
 
+def delete_not_numbers(list):
+
+    counter_not_number = 0
+
+    for item in list:
+        if item.isnumeric() == False:
+            counter_not_number += 1
+
+    for i in range(counter_not_number):
+        for item in list:
+            if item.isnumeric() == False:
+                numbers.remove(item)
+
+    new_list = numbers
+
+    return new_list
+
 while True:
     event, values = window.read()
 
@@ -93,40 +110,49 @@ while True:
         model = values['_INPUT_MODEL_']
         process  = values['_INPUT_PROCESS_']
         
-        if number.isnumeric():
-            # checking if name already exists 
-            number_exists = False
-            for data in data_base:
-                if number == data_base[data_base.index(data)][0]:
-                    print(data_base[data_base.index(data)])
-                    window['_TITLE_'].update('Order already exists!', text_color='red')
-                    number_exists = True
+        # MAKE THE STRING SPLITED WITH ',' OK;.
+        print("Checking if orders are valid...")
 
-            if number_exists:
-                pass
-            else:
-                order = [number, model, process]
-                
-                data_base.append(order)
+        numbers = number.replace(' ', '')
+        numbers = numbers.split(',')
+        numbers = delete_not_numbers(numbers)
 
-                window['_MAIN_TABLE_'].update(data_base)
+        for number in numbers:
+            if number.isnumeric():
+                # checking if name already exists 
+                number_exists = False
+                print(f"Number {number} don't exists")
+                for data in data_base:
+                    if number == data_base[data_base.index(data)][0]:
+                        print(data_base[data_base.index(data)])
+                        window['_TITLE_'].update('Order already exists!', text_color='red')
+                        number_exists = True
 
-                window['_TITLE_'].update(f'Order {number} has been added', text_color='white')
-
-                '''for data in data_base:
-                    if data.process == processes[0]:
-                        color = 'green'
-                    elif data.process == processes[1]:
-                        color = 'blue'
-                    elif data.process == processes[2]:
-                        color = 'pink'
-                    else:
-                        color = 'yellow'
-                
+                if number_exists:
+                    pass
+                else:
+                    order = [number, model, process]
                     
+                    data_base.append(order)
 
-                    window['_MAIN_TABLE_'].Update(row_colors = [[data_base.index(data), color]])'''
-        else:
-            window['_TITLE_'].update('This order is not a valid number', text_color='red')
+                    window['_MAIN_TABLE_'].update(data_base)
+
+                    window['_TITLE_'].update(f'Order {number} has been added', text_color='white')
+
+                    '''for data in data_base:
+                        if data.process == processes[0]:
+                            color = 'green'
+                        elif data.process == processes[1]:
+                            color = 'blue'
+                        elif data.process == processes[2]:
+                            color = 'pink'
+                        else:
+                            color = 'yellow'
+                    
+                        
+
+                        window['_MAIN_TABLE_'].Update(row_colors = [[data_base.index(data), color]])'''
+            else:
+                window['_TITLE_'].update('This order is not a valid number', text_color='red')
 
     print(f'EVENT: {event}\nVALUE: {values}')
