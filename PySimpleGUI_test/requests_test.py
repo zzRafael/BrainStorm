@@ -1,62 +1,7 @@
-'''import PySimpleGUI as sg
-import random
-
-headings = ['Name', 'Size', 'Type']
-
-names = ['Aurora', 'Kepler - JC2', 'Proxima B', 'Sigmon', 'Monjo - 62', 'Gerdalt']
-sizes = ['Small', 'Medium', 'Big']
-types = ['Aquatic', 'Rocky', 'Gaseous', 'Frozen', 'Desertic']
-
-data = []
-
-number_of_planets = 1200
-
-for i in range(number_of_planets):
-    data.append([random.choice(names), random.choice(sizes),random.choice(types)])
-
-layout = [
-    [sg.Table(
-    data,
-    headings = headings,
-    justification = 'right',
-    max_col_width =500,
-    expand_x = True,
-    expand_y = True,
-    auto_size_columns = True
-    ),
-    sg.Table(
-    data,
-    headings = headings,
-    justification = 'right',
-    max_col_width =500,
-    expand_x = True,
-    expand_y = True,
-    auto_size_columns = True,
-    ),
-    sg.Table(
-    data,
-    headings = headings,
-    justification = 'right',
-    max_col_width =500,
-    expand_x = True,
-    expand_y = True,
-    auto_size_columns = True,
-    )]
-    ]
-
-window = sg.Window('Table', layout, resizable=True).finalize()
-window.Maximize()
-
-while True:
-    event, values = window.read()
-
-    if event == sg.WIN_CLOSED:
-        break'''
-
-
 import PySimpleGUI as sg
 from random import choice
 import pyautogui
+
 headings = ['Number', 'Model', 'Process']
 
 processes = ['Flash', 'Polimento', 'Gravando', 'Black', 'Cravando']
@@ -121,18 +66,17 @@ while True:
             if number.isnumeric():
                 # checking if name already exists 
                 number_exists = False
-                print(f"Number {number} don't exists")
                 for data in data_base:
                     if number == data_base[data_base.index(data)][0]:
                         print(data_base[data_base.index(data)])
-                        window['_TITLE_'].update('Order already exists!', text_color='red')
+                        sg.popup(f'Pedido "{number}" já está cadastrado!', title='Atenção')
                         number_exists = True
 
                 if number_exists:
                     pass
                 else:
                     order = [number, model, process]
-                    
+
                     data_base.append(order)
 
                     window['_MAIN_TABLE_'].update(data_base)
