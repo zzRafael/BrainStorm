@@ -46,6 +46,7 @@ while True:
                                     sg.Text(
                                         text=f'{order_input_model}',
                                         size=(20,35),
+                                        justification='center'
                                     ),
                                     sg.Text(
                                         text=f'{order_combo_process}',
