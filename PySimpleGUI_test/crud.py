@@ -32,7 +32,7 @@ while True:
                     [
                         sg.Frame(
                             title='',
-                            size=(400,35),
+                            size=(300,35),
                             layout=[
                                 [
                                     sg.Checkbox(
