@@ -32,23 +32,24 @@ while True:
                     [
                         sg.Frame(
                             title='',
-                            size=(300,35),
+                            size=(390,35),
                             layout=[
                                 [
                                     sg.Checkbox(
-                                        text=''
+                                        text=None
                                     ),
                                     sg.Text(
                                         text=f'{order_input_number}',
-                                        expand_x=True
+                                        size=(5,35),
+                                        justification='center',
                                     ),
                                     sg.Text(
                                         text=f'{order_input_model}',
-                                        expand_x=True
+                                        size=(20,35),
                                     ),
                                     sg.Text(
                                         text=f'{order_combo_process}',
-                                        expand_x=True
+                                        size=(12,35),
                                     )
                                 ]
                             ],

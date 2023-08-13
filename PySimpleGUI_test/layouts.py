@@ -42,8 +42,8 @@ initial_window_layout = [
                         element_justification='center',
                         layout=[
                             [
-                                sg.Text(text='Pedido', expand_x=True),
-                                 sg.Text(text='Modelo', expand_x=True),
+                                sg.Text(text='          Pedido', expand_x=True),
+                                 sg.Text(text=' Modelo', expand_x=True),
                                 sg.Text(text='Processo', expand_x=True)
                             ]
                         ]
@@ -72,7 +72,8 @@ add_window_layout = [
             text='Número do pedido: ',
             key='-ADD_ORDER_NUMBER_TEXT-'
         ),
-        sg.Input(
+        sg.Multiline(
+            size=(20,3),
             default_text='',
             key='-ADD_ORDER_NUMBER_INPUT-',
             do_not_clear=False
