@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 from windows import create_initial_window, create_add_window
+from defs import delete_not_numbers
 
 
 initial_window, add_window = create_initial_window(), None
@@ -22,45 +23,51 @@ while True:
 
     elif window == add_window:
         if event == '-ADD_ORDER_ADD_BUTTON-':
-            order_input_number = values["-ADD_ORDER_NUMBER_INPUT-"]
+            order_input_numbers = values["-ADD_ORDER_NUMBER_INPUT-"]
             order_input_model = values["-ADD_ORDER_MODEL_INPUT-"]
             order_combo_process = values["-ADD_ORDER_PROCESS_COMBO-"]
 
-            initial_window.extend_layout(
-                initial_window['-INITIAL_TABLE_COLUMN-'],
-                [
+            numbers = order_input_numbers.replace(' ', '')
+            numbers = numbers.split(',')
+            numbers = delete_not_numbers(numbers)
+
+            for number in numbers:
+                initial_window.extend_layout(
+                    initial_window['-INITIAL_TABLE_COLUMN-'],
                     [
-                        sg.Frame(
-                            title='',
-                            size=(390,35),
-                            layout=[
-                                [
-                                    sg.Checkbox(
-                                        text=None
-                                    ),
-                                    sg.Text(
-                                        text=f'{order_input_number}',
-                                        size=(5,35),
-                                        justification='center',
-                                    ),
-                                    sg.Text(
-                                        text=f'{order_input_model}',
-                                        size=(20,35),
-                                        justification='center'
-                                    ),
-                                    sg.Text(
-                                        text=f'{order_combo_process}',
-                                        size=(12,35),
-                                    )
-                                ]
-                            ],
-                            key=f'-INITIAL_TABLE_FRAME_{order_input_number}-'
-                        )
+                        [
+                            sg.Frame(
+                                title='',
+                                size=(390,35),
+                                layout=[
+                                    [
+                                        sg.Checkbox(
+                                            text=None
+                                        ),
+                                        sg.Text(
+                                            text=f'{number}',
+                                            size=(5,35),
+                                            justification='center',
+                                        ),
+                                        sg.Text(
+                                            text=f'{order_input_model}',
+                                            size=(20,35),
+                                            justification='center'
+                                        ),
+                                        sg.Text(
+                                            text=f'{order_combo_process}',
+                                            size=(12,35),
+                                        )
+                                    ]
+                                ],
+                                key=f'-INITIAL_TABLE_FRAME_{number}-'
+                            )
+                        ]
                     ]
-                ]
-            )
+                )
             
             add_window.hide()
             
         elif event == '-ADD_ORDER_CANCEL_BUTTON-':
             add_window.hide()
+    print(values)
