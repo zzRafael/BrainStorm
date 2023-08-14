@@ -42,7 +42,8 @@ while True:
                                 layout=[
                                     [
                                         sg.Checkbox(
-                                            text=None
+                                            text=None,
+                                            key=f'-CHEKBOX_NUMBER_{number}_-'
                                         ),
                                         sg.Text(
                                             text=f'{number}',
@@ -68,6 +69,7 @@ while True:
             
             add_window.hide()
             
-        elif event == '-ADD_ORDER_CANCEL_BUTTON-':
+        elif event == '-ADD_ORDER_CANCEL_BUTTON-' or event == None:
             add_window.hide()
     print(values)
+    print(event)
