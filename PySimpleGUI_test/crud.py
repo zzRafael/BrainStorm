@@ -3,18 +3,21 @@ import os
 from windows import create_initial_window, create_add_window
 from defs import delete_not_numbers
 
-
+# creating the windows
 initial_window, add_window = create_initial_window(), None
+
+# maximize the initial window
 initial_window.maximize()
 
 add_window_created = False
 
+# create / confirm the data path
 try:
     os.mkdir('data')
 except FileExistsError:
     pass
 
-
+# main loop
 while True:
     window, event, values = sg.read_all_windows()
 
@@ -50,7 +53,7 @@ while True:
                                     [
                                         sg.Checkbox(
                                             text=None,
-                                            key=f'-CHEKBOX_NUMBER_{number}_-'
+                                            key=f'-{number}_CHECKBOX_NUMBER-'
                                         ),
                                         sg.Text(
                                             text=f'{number}',

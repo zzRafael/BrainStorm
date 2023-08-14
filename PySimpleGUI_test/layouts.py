@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+import os
 
 # table layouts
 initial_table_column_layout = [
@@ -22,6 +23,75 @@ initial_button_column_layout = [
     ]
 ]
 
+initial_button_column_layout = [
+    [
+        sg.Button(
+            button_text='Adicionar',
+            key='-INITIAL_ADD_BUTTON-'
+        )
+    ]
+]
+
+initial_table_charge = [
+    [
+        sg.Frame(
+            title='',
+            expand_x=True,
+            element_justification='center',
+            layout=[
+                [
+                    sg.Text(text='          Pedido', expand_x=True),
+                    sg.Text(text=' Modelo', expand_x=True),
+                    sg.Text(text='Processo', expand_x=True)
+                ]
+            ]
+        )
+    ]
+]
+
+directory = os.chdir('data')
+data_files = os.listdir(directory)
+
+# first charge
+for i in range(200):
+    with open(data_files[i], 'r') as file:
+        lines = file.readlines()
+        print(lines)
+        initial_table_charge.append(
+        [
+            sg.Frame(
+                title='',
+                size=(390,35),
+                layout=[
+                    [
+                        sg.Checkbox(
+                            text=None,
+                            key=f'-{lines[0]}_CHECKBOX_NUMBER-'
+                        ),
+                        sg.Text(
+                            text=f'{lines[0]}',
+                            size=(5,35),
+                            justification='center',
+                        ),
+                        sg.Text(
+                            text=f'{lines[1]}',
+                            size=(20,35),
+                            justification='center'
+                        ),
+                        sg.Text(
+                            text=f'{data_files[i]}',
+                            size=(12,35),
+                        )
+                    ]
+                ],
+                key=f'-INITIAL_TABLE_FRAME_{lines[0]}-'
+            )
+        ])
+    file.close()
+
+directory = os.chdir('..')
+
+
 # initial window layout
 initial_window_layout = [
     # first line
@@ -36,25 +106,11 @@ initial_window_layout = [
             element_justification='center',
             layout=[
                 [
-                    sg.Frame(
-                        title='',
-                        expand_x=True,
-                        element_justification='center',
-                        layout=[
-                            [
-                                sg.Text(text='          Pedido', expand_x=True),
-                                 sg.Text(text=' Modelo', expand_x=True),
-                                sg.Text(text='Processo', expand_x=True)
-                            ]
-                        ]
-                    )
-                ],
-                [
                     sg.Column(
                         size=(400, 600),
                         scrollable=True,
                         vertical_scroll_only=True,
-                        layout=initial_table_column_layout,
+                        layout=initial_table_charge,
                         key='-INITIAL_TABLE_COLUMN-'
                     )
                 ]
