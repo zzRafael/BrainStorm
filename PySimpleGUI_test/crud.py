@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+import os
 from windows import create_initial_window, create_add_window
 from defs import delete_not_numbers
 
@@ -7,6 +8,12 @@ initial_window, add_window = create_initial_window(), None
 initial_window.maximize()
 
 add_window_created = False
+
+try:
+    os.mkdir('data')
+except FileExistsError:
+    pass
+
 
 while True:
     window, event, values = sg.read_all_windows()
@@ -71,5 +78,6 @@ while True:
             
         elif event == '-ADD_ORDER_CANCEL_BUTTON-' or event == None:
             add_window.hide()
+            
     print(values)
     print(event)
