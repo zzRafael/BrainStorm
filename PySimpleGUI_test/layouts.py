@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-import os
+import os, sys
 
 # table layouts
 initial_table_column_layout = [
@@ -48,6 +48,14 @@ initial_table_charge = [
         )
     ]
 ]
+
+script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
+os.chdir(script_directory)
+
+try:
+    os.mkdir('data')
+except FileExistsError:
+    pass
 
 directory = os.chdir('data')
 data_files = os.listdir(directory)
